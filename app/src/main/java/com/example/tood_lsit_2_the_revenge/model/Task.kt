@@ -3,7 +3,7 @@ package com.example.tood_lsit_2_the_revenge.model
 import java.time.LocalDateTime
 import java.util.UUID
 
-class Task (
+data class Task (
     val id: String = UUID.randomUUID().toString(),
     val title: String,
     val description: String,
