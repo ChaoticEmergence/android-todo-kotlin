@@ -1,15 +1,40 @@
+# Fichiers de build
+/build/
+app/build/
+ 
+# Fichiers locaux Android Studio
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+.idea/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+.idea/caches
+.idea/modules.xml
+.idea/navEditor.xml
+ 
+# Gradle
+.gradle/
+gradle-wrapper.jar
 local.properties
+ 
+# Fichiers de l'OS
+.DS_Store
+Thumbs.db
+ 
+# Clés et fichiers sensibles
+*.jks
+*.keystore
+keystore.properties
+ 
+# Fichiers générés
+gen/
+out/
+captures/
+.externalNativeBuild/
+.cxx/
+ 
+# Logs
+*.log
