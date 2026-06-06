@@ -15,5 +15,6 @@ class TaskFormContract {
         fun onSaveTask(taskId: String?, title: String, description: String, category: Category, priority: Priority)
         fun onCancelClicked()
         fun onViewDestroyed()
+        fun onViewCreated(taskId: String?)
     }
 }

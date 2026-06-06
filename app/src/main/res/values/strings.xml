@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">tood-lsit-2-the-revenge</string>
+    <string name="app_name">Tood Lsit 2: The Revenge</string>
+    <string name="add_task">Ajouter une tâche</string>
 </resources>
