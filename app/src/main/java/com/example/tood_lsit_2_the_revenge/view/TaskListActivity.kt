@@ -1,4 +1,5 @@
 package com.example.tood_lsit_2_the_revenge.view
+import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -34,7 +35,6 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_task_list)
 
         val repository = TaskRepository(this)
@@ -81,7 +81,7 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
     private fun setupFab() {
         val fab = findViewById<FloatingActionButton>(R.id.fabAddTask)
         fab.setOnClickListener {
-            Toast.makeText(this, "Ya man ça marche!", Toast.LENGTH_SHORT).show()
+            presenter.onAddTaskClicked()
         }
     }
 
@@ -132,11 +132,17 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
         }
     }
 
+
     override fun displayTasks(tasks: List<Task>) {
         adapter.updateTasks(tasks)
     }
 
-    // À implémenter
-    override fun navigateToTask(taskId: String?) {}
+    override fun navigateToTask(taskId: String?) {
+        val intent = Intent(this, TaskFormActivity::class.java)
+        if (taskId != null) {
+            intent.putExtra(TASK_ID, taskId)
+        }
+        startActivity(intent)
+    }
 
 }

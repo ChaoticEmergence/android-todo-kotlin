@@ -70,8 +70,13 @@ class TaskListPresenter(
         view?.displayTasks(tasks)
     }
 
-    // À implémenter
-    override fun onAddTaskClicked() {}
-    override fun onTaskClicked(taskId: String) {}
+
+    override fun onAddTaskClicked() {
+        view?.navigateToTask(null)
+    }
+
+    override fun onTaskClicked(taskId: String) {
+        view?.navigateToTask(taskId)
+    }
 
 }
