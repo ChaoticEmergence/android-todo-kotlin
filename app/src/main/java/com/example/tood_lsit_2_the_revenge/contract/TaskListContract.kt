@@ -18,5 +18,7 @@ class TaskListContract {
         fun onFilterByPriority(priority: Priority?)
         fun onFilterByCompletionStatus(isDone: Boolean?)
         fun onViewDestroyed()
+        fun onViewCreated()
+        fun onResume()
     }
 }
