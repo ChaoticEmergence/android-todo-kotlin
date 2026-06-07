@@ -2,7 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="charcoal">#181818</color>
     <color name="priority_high">#F44336</color>
     <color name="priority_medium">#FF9800</color>
     <color name="priority_low">#4CAF50</color>
+    <color name="label_filter">#A0A0A0</color>
 </resources>
