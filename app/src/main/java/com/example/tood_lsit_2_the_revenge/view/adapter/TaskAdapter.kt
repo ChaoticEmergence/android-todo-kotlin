@@ -12,17 +12,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tood_lsit_2_the_revenge.R
 import com.example.tood_lsit_2_the_revenge.model.Priority
 import com.example.tood_lsit_2_the_revenge.model.Task
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class TaskAdapter(
     private var tasks: List<Task>,
     private val onTaskClicked: (String) -> Unit,
     private val onTaskDoneClicked: (String) -> Unit
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm")
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTaskTitle)
         val tvCategory: TextView = itemView.findViewById(R.id.tvTaskCategory)
         val cbDone: CheckBox = itemView.findViewById(R.id.cbTaskDone)
         val viewPriorityIndicator: View = itemView.findViewById(R.id.viewPriorityIndicator)
+        val tvDate: TextView = itemView.findViewById(R.id.tvTaskDate)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -35,6 +41,11 @@ class TaskAdapter(
 
         holder.tvTitle.text = task.title
         holder.tvCategory.text = task.category.name
+
+        val localDate = Instant.ofEpochMilli(task.dateCreation)
+            .atZone(ZoneId.systemDefault())
+            .format(dateFormatter)
+        holder.tvDate.text = localDate
 
         if (task.isDone) {
             holder.tvTitle.paintFlags = holder.tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
