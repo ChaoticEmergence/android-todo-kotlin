@@ -56,6 +56,29 @@ class TaskRepository(context: Context) {
     fun filterByCompletionStatus(isDone: Boolean): List<Task> =
         queryTasks("is_done = ?", arrayOf(if (isDone) "1" else "0"))
 
+    // Ajout pour rendre les filtres additifs
+    fun filter(category: Category?, priority: Priority?, isDone: Boolean?): List<Task> {
+        val conditions = mutableListOf<String>()
+        val args = mutableListOf<String>()
+
+        if (category != null) {
+            conditions.add("category = ?")
+            args.add(category.name)
+        }
+        if (priority != null) {
+            conditions.add("priority = ?")
+            args.add(priority.name)
+        }
+        if (isDone != null) {
+            conditions.add("is_done = ?")
+            args.add(if (isDone) "1" else "0")
+        }
+
+        val selection = if (conditions.isEmpty()) null else conditions.joinToString(" AND ")
+        val selectionArgs = if (args.isEmpty()) null else args.toTypedArray()
+
+        return queryTasks(selection, selectionArgs)
+    }
     // L'implémentation et la structure de cette méthode ont été générées en grande partie par l'IA
     // Je ne savais pas comment gérer des queries redondants mais je savais qu'il serait bien de le faire
     private fun queryTasks(selection: String?, selectionArgs: Array<String>?): List<Task> {

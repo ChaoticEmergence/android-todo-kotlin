@@ -10,50 +10,42 @@ class TaskListPresenter(
     private var view: TaskListContract.View?,
     private val repository: TaskRepository
 ) : TaskListContract.Presenter {
+    private var currentCategory: Category? = null
+    private var currentPriority: Priority? = null
+    private var currentIsDone: Boolean? = null
 
     override fun onViewCreated() {
-        val tasks = repository.getAll()
-        view?.displayTasks(tasks)
+        applyFilters()
     }
+
     override fun onResume() {
-        val tasks = repository.getAll()
-        view?.displayTasks(tasks)
+        applyFilters()
     }
+
     override fun onFilterByCategory(category: Category?) {
-        val tasks = if (category != null) {
-            repository.filterByCategory(category)
-        } else {
-            repository.getAll()
-        }
-        view?.displayTasks(tasks)
+        currentCategory = category
+        applyFilters()
     }
 
     override fun onFilterByPriority(priority: Priority?) {
-        val tasks = if (priority != null) {
-            repository.filterByPriority(priority)
-        } else {
-            repository.getAll()
-        }
-        view?.displayTasks(tasks)
+        currentPriority = priority
+        applyFilters()
     }
 
     override fun onFilterByCompletionStatus(isDone: Boolean?) {
-        val tasks = if (isDone != null) {
-            repository.filterByCompletionStatus(isDone)
-        } else {
-            repository.getAll()
-        }
-        view?.displayTasks(tasks)
+        currentIsDone = isDone
+        applyFilters()
     }
 
     override fun onViewDestroyed() {
         view = null
     }
+
     override fun onDeleteTask(taskId: String) {
         repository.delete(taskId)
-        val tasks = repository.getAll()
-        view?.displayTasks(tasks)
+        applyFilters()
     }
+
     override fun onTaskDoneClicked(taskId: String) {
         val task = repository.getById(taskId) ?: return
         val updated = Task(
@@ -66,10 +58,8 @@ class TaskListPresenter(
             dateCreation = task.dateCreation
         )
         repository.update(updated)
-        val tasks = repository.getAll()
-        view?.displayTasks(tasks)
+        applyFilters()
     }
-
 
     override fun onAddTaskClicked() {
         view?.navigateToTask(null)
@@ -79,4 +69,10 @@ class TaskListPresenter(
         view?.navigateToTask(taskId)
     }
 
+    // Filtres additifs + applique les filtres dès que l'on clique sur un checkbox
+    // en regénérant la liste à chaque fois
+    private fun applyFilters() {
+        val tasks = repository.filter(currentCategory, currentPriority, currentIsDone)
+        view?.displayTasks(tasks)
+    }
 }
