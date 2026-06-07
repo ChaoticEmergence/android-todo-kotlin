@@ -25,6 +25,7 @@ class TaskAdapter(
     private val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm")
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTaskTitle)
+        val tvDescription: TextView = itemView.findViewById(R.id.tvTaskDescription)
         val tvCategory: TextView = itemView.findViewById(R.id.tvTaskCategory)
         val cbDone: CheckBox = itemView.findViewById(R.id.cbTaskDone)
         val viewPriorityIndicator: View = itemView.findViewById(R.id.viewPriorityIndicator)
@@ -40,6 +41,8 @@ class TaskAdapter(
         val task = tasks[position]
 
         holder.tvTitle.text = task.title
+        holder.tvDescription.text = task.description
+        holder.tvDescription.visibility = if (task.description.isBlank()) View.GONE else View.VISIBLE
         holder.tvCategory.text = task.category.name
 
         val localDate = Instant.ofEpochMilli(task.dateCreation)
