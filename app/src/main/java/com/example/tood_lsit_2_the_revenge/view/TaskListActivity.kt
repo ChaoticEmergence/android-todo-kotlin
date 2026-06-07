@@ -106,6 +106,7 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
         spinnerStatus = findViewById(R.id.spinnerStatus)
         val statusOptions = listOf("Toutes", "Complétées", "À faire")
         spinnerStatus.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, statusOptions)
+        spinnerStatus.setSelection(2)
         spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
                 val isDone = when (position) {
