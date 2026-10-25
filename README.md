@@ -20,12 +20,3 @@
 
 ## Execution
 - Soit sur émulateur ou sur un appareil physique dans Android Studio
-
-## Utilisation de l'IA
-- Tests
-- Débogage et recherche plus rapide de solutions
-- Méthode `queryTasks(selection: String?, selectionArgs: Array<String>?)` dans `TaskRepository`
-- Le squelette de la méthode `setupFilters()` dans `TaskListActivity`
-- Certaines implémentations plus pointues
-- Aide avec l'avancement incrémental de features et du produit final en général
-- Questions sur certains concepts
